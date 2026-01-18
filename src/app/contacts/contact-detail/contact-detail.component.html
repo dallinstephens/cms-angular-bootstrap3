@@ -1,0 +1,32 @@
+<!-- Reference for bootstap 3 panels: https://www.w3schools.com/bootstrap/bootstrap_panels.asp -->
+<div 
+    class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12" style=" font-size: 20px;">
+                <b>{{ contact.name }}</b>
+            </div>
+        </div>
+        <div class="row" style="display: flex; align-items: center; margin: 10px 0px">
+            <div class="col-xs-8" style="padding-left: 0;">       
+                <img src="{{ contact.imageUrl }}"
+                alt="{{ contact.name }}"
+                class="img-responsive">
+            </div>
+
+            <div class="col-xs-4 text-right">
+                <!-- button styles: https://www.w3schools.com/bootstrap/bootstrap_buttons.asp -->
+                <button class="btn btn-primary" style="margin-right: 5px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="list-group-item-heading"><b>Email: </b>{{ contact.email }}</p>         
+                <p class="list-group-item-heading"><b>Phone: </b>{{ contact.phone }}</p>
+            </div>
+        </div>
+    </div>
+</div>

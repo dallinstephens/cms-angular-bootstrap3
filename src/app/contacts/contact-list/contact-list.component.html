@@ -1,0 +1,28 @@
+<!-- Reference for bootstap 3 panels: https://www.w3schools.com/bootstrap/bootstrap_panels.asp -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-xs-8" style=" font-size: 20px;">
+                <b>Contacts</b>
+            </div>
+            <div class="col-xs-4 text-right">
+                <button class="btn btn-success pull-right">New Contact</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <a href="#"
+            class="list-group-item clearfix"
+            *ngFor="let contact of contacts">
+            <div class="pull-left">
+                <h4 class="list-group-item-heading">{{ contact.name }}</h4>
+            </div>            
+            <span class="pull-right">
+                <img src="{{ contact.imageUrl }}"
+                alt="{{ contact.name }}"
+                class="img-responsive"
+                style="max-height: 50px;">
+            </span>
+        </a>
+    </div>
+</div>
