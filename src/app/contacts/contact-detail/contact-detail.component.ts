@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Contact } from '../contact.model';
 
 @Component({
@@ -7,7 +7,11 @@ import { Contact } from '../contact.model';
   styleUrl: './contact-detail.component.css'
 })
 export class ContactDetailComponent {
-  contact: Contact;
+  // Reference: https://byui.instructure.com/courses/404738/pages/w03-assignment-instructions
+  // The value of the selectedContact variable now needs to be passed down to the 
+  // ContactDetailComponent as an input.
+  @Input() contact: Contact;
+
 
   ngOnInit() {
     // this.contact = new Contact(

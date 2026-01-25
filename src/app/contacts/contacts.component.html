@@ -1,8 +1,41 @@
 <div class="row">
     <div class="col-md-5">
-        <cms-contact-list></cms-contact-list>
+        <!-- Reference: https://byui.instructure.com/courses/404738/pages/w03-assignment-instructions
+        When the end user clicks on a contact in the contact list, the selectedContactEvent will
+        be fired and send the emitted event back up to the parent ContactsComponent. Modify this 
+        component to detect when the event occurs, retrieve the Contact object from the event, 
+        and finally pass the contact object down to the ContactDetailComponent as an input when 
+        it is loaded.
+        Open the contacts.component.html file and bind the selectedContactEvent output from the
+        ContactListComponent to a statement that will assign the data passed with the event to 
+        a local variable.
+        When the selectedContactEvent in the <cms-contact-list> tag is emitted, it executes
+        the expression to the right of the equal sign and assigns the value of the $event variable 
+        to the selectedContact class variable defined in the ContactsComponent class. The $event 
+        variable is a reserved variable in Angular that contains the data passed with the event. 
+        In this case, it is the Contact object that was passed to the emit() method in the 
+        ContactListComponent class. -->
+        <cms-contact-list
+            (selectedContactEvent)="selectedContact = $event">
+        </cms-contact-list>
     </div>
+    <!-- Reference: https://byui.instructure.com/courses/404738/pages/w03-assignment-instructions
+    Modify the <cms-contact-detail> tag to assign the value of the selectedContact variable 
+    to the contact class input variable defined in the ContactDetailComponent class. -->
+    <!-- () Parentheses are for Output/Events (sending data out of 
+    [] Square Brackets are for Input/Properties (passing data into a component).     -->
+    <!-- Selectively load the ContactDetailComponent when a contact has been selected in the contact list. 
+    This can be easily done using the ngIf directive. The ngIf directive loads a component only when 
+    the specified condition evaluates to true. In the contacts.component.html file, add an ngIf 
+    directive to the <cms-contact-detail> tag to load the component only when the value of the 
+    selectedContact variable is not null or undefined. -->
+    <!-- This *ngIf="selectedContact !== null && selectedContact !== undefined" means the same thing as
+    *ngIf="selectedContact". *ngIf="selectedContact" loads ONLY if it exists. *ngIf="selectedContact"
+    evalutes to false if selectedContact is nothing. -->
     <div class="col-md-7">
-        <cms-contact-detail></cms-contact-detail>
+        <cms-contact-detail
+            *ngIf="selectedContact"
+            [contact]="selectedContact">
+        </cms-contact-detail>
     </div>
 </div>

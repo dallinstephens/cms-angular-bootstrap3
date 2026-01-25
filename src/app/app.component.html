@@ -1,8 +1,15 @@
-<cms-header></cms-header>
-<div class="container">
+<!-- The variable selectedFeatureEvent is located in header.component.ts. -->
+<!-- The switchView function is located in app.component.ts. -->
+<!-- The Event Listener: (selectedFeatureEvent) correctly "listens" for the signal coming from the header.  -->
+<!-- The Action: switchView($event) correctly calls the method defined in app.component.ts, passing it 
+the string (e.g., "documents" or "messages") that was clicked.  -->
+<cms-header (selectedFeatureEvent)="switchView($event)"></cms-header>
+<div class="container pull-left">
     <div class="row">
         <div class="col-md-12">
-            <cms-contacts></cms-contacts>
+            <cms-documents *ngIf="selectedFeature === 'documents'"></cms-documents>
+            <cms-message-list *ngIf="selectedFeature === 'messages'"></cms-message-list>
+            <cms-contacts *ngIf="selectedFeature === 'contacts'"></cms-contacts>
         </div>
     </div>
 </div>

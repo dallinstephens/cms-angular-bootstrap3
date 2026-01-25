@@ -11,7 +11,21 @@
         </div>
     </div>
     <div class="panel-body">
-        <a href="#"
+        <!-- [contact]="contactElement": contactElement is passed into the contact input variable
+        of ContactItemComponent by @Input() in contact-item.component.ts; 
+        contactElement is bound to the contact property -->
+        <!-- Reference: https://byui.instructure.com/courses/404738/pages/w03-assignment-instructions
+        Detect when the end user clicks on one of the contact items in the list and then call and 
+        pass the selected Contact object to the onSelected() method. Open the contact-list.component.html file 
+        and go to the < cms- contact-item > tag. Use event binding to detect the click event and call the 
+        onSelected() method. Pass the current contact object defined in the ngFor directive to the method. -->
+        <cms-contact-item
+            *ngFor="let contactElement of contacts"
+            [contact]="contactElement"
+            (click)="onSelected(contactElement)">
+        </cms-contact-item>
+        <!-- This was inserted into the contact-item component -->
+        <!-- <a href="#"
             class="list-group-item clearfix"
             *ngFor="let contact of contacts">
             <div class="pull-left">
@@ -23,6 +37,6 @@
                 class="img-responsive"
                 style="max-height: 50px;">
             </span>
-        </a>
+        </a> -->
     </div>
 </div>
