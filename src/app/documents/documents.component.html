@@ -1,8 +1,22 @@
 <div class="row">
     <div class="col-md-5">
-        <cms-document-list></cms-document-list>
+        <!-- Reference: https://byui.instructure.com/courses/404738/pages/w04-assignment-instructions -->
+        <!-- Modify the <cms-document-list> tag so that it will detect the selectedDocumentEvent emitted from 
+        the DocumentListComponent and assign the document object passed with the event to the 
+        selectedDocument class variable you just defined. -->
+        <cms-document-list
+            (selectedDocumentEvent)="selectedDocument = $event">
+        </cms-document-list>
     </div>
     <div class="col-md-4">
-        <cms-document-detail></cms-document-detail>
+        <!-- Reference: https://byui.instructure.com/courses/404738/pages/w04-assignment-instructions -->
+        <!-- Modify the <cms-document-detail> tag and assign the value of the selectedDocument variable into the 
+        document input variable defined in the DocumentDetailComponent. -->
+        <!-- Add an ngIf directive to the <cms-document-detail> tag to selective load and display this component only 
+        when the selectedDocument variable has a value. -->
+        <cms-document-detail
+            [document]="selectedDocument"
+            *ngIf="selectedDocument">
+        </cms-document-detail>
     </div>
 </div>

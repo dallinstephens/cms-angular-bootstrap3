@@ -1,17 +1,31 @@
-<p>document-list works!</p>
-<cms-document-item></cms-document-item>
-<!-- <div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="row pad-left-right">
-            <span class="pull-left title">Add Documents</span>
-            <a class="btn btn-success pull-right">Add Document</a>
-        </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row pad-left-right">
+      <span class="pull-left title">Documents</span>
+      <a class="btn btn-success pull-right">Add Document</a>
     </div>
-    <div class="panel-body">
-        <div class="center-panel">
-            <cms-document-item
-                *ngFor="let documentElement of documents">
-            </cms-document-item>
-        </div>
+  </div>
+  <div class="panel-body">
+    <div class="center-panel">
+      <cms-document-item
+        *ngFor="let documentElement of documents"
+        [document]="documentElement"
+        (click)="onSelectedDocument(documentElement)">
+      </cms-document-item>
     </div>
-</div> -->
+  </div>
+
+</div>
+
+<!-- Reference: https://gemini.google.com/app -->
+<!-- *ngFor="let documentElement of documents": This is a structural directive that iterates 
+ through the documents array defined in your TypeScript class. For every object in that array, 
+ it creates a new instance of the <cms-document-item> component. -->
+<!-- [document]="documentElement": This is Property Binding. It takes the current item from 
+ the loop (documentElement) and passes it into the child component's @Input() property named 
+ document. This is how the child component receives its specific data. -->
+<!-- (click)="onSelectedDocument(documentElement)": This is Event Binding. It listens for a 
+ native DOM click on the component. When clicked, it executes the onSelectedDocument method 
+ in your TypeScript file, passing the specific documentElement associated with that row as 
+ an argument. -->
+
