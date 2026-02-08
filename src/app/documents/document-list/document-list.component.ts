@@ -1,28 +1,45 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+// import { Component, Output, EventEmitter } from '@angular/core';
 import { Document } from '../document.model';
+import { DocumentService } from '../document.service';
 
 @Component({
   selector: 'cms-document-list',
   templateUrl: './document-list.component.html',
   styleUrl: './document-list.component.css'
 })
-export class DocumentListComponent {
-  @Output() selectedDocumentEvent = new EventEmitter<Document>();
+export class DocumentListComponent implements OnInit {
+  documents: Document[] = [];
 
-  documents: Document[] = [
-    // id, name, description, url, children
-    new Document('1', 'CIT 111 - Introduction to Databases', 'MySQL, MySQL Workbench', '../../assets/images/documentCIT111.jpg', null),
-    new Document('2', 'CSE 111 - Programming with Functions', 'Python3, Visual Studio Code', '../../assets/images/documentCSE111.jpg', null),
-    new Document('3', 'CSE 210 - Programming with Classes', 'C#, Visual Studio Code, Classes', '../../assets/images/documentCSE210.jpg', null),
-    new Document('4', 'CSE 212 - Programming with Data Structures', 'C#, Visual Studio Code, Data Structures', '../../assets/images/documentCSE212.jpg', null),
-    new Document('5', 'WDD 130 - Web Fundamentals', 'HTML, CSS, Wireframes', '../../assets/images/documentWDD130.jpg', null)
-  ];
+  constructor(private documentService: DocumentService) {}
 
-  onSelectedDocument(document: Document) {
-    // Reference: https://byui.instructure.com/courses/404738/pages/w04-assignment-instructions
-    // emit the selectedDocumentEvent and pass it the document object passed into the method
-    this.selectedDocumentEvent.emit(document);
+  ngOnInit() {
+    this.documents = this.documentService.getDocuments();
   }
+
+  // Reference: https://byui.instructure.com/courses/404738/pages/w05-assignment-instructions
+  // Modify the onSelectedDocument(document: Document) method to now emit the documentSelectedEvent 
+  // and pass it the Document object selected and passed into the method.
+  onSelectedDocument(document: Document) {
+    this.documentService.documentSelectedEvent.emit(document);
+  }
+
+  // @Output() selectedDocumentEvent = new EventEmitter<Document>();
+
+  // documents: Document[] = [
+  //   // id, name, description, url, children
+  //   new Document('1', 'CIT 111 - Introduction to Databases', 'MySQL, MySQL Workbench', '../../assets/images/documentCIT111.jpg', null),
+  //   new Document('2', 'CSE 111 - Programming with Functions', 'Python3, Visual Studio Code', '../../assets/images/documentCSE111.jpg', null),
+  //   new Document('3', 'CSE 210 - Programming with Classes', 'C#, Visual Studio Code, Classes', '../../assets/images/documentCSE210.jpg', null),
+  //   new Document('4', 'CSE 212 - Programming with Data Structures', 'C#, Visual Studio Code, Data Structures', '../../assets/images/documentCSE212.jpg', null),
+  //   new Document('5', 'WDD 130 - Web Fundamentals', 'HTML, CSS, Wireframes', '../../assets/images/documentWDD130.jpg', null)
+  // ];
+
+  // onSelectedDocument(document: Document) {
+  //   // Reference: https://byui.instructure.com/courses/404738/pages/w04-assignment-instructions
+  //   // emit the selectedDocumentEvent and pass it the document object passed into the method
+  //   this.selectedDocumentEvent.emit(document);
+  // }
 }
 
 // Reference: https://gemini.google.com/app
