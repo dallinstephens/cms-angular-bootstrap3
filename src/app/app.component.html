@@ -3,13 +3,23 @@
 <!-- The Event Listener: (selectedFeatureEvent) correctly "listens" for the signal coming from the header.  -->
 <!-- The Action: switchView($event) correctly calls the method defined in app.component.ts, passing it 
 the string (e.g., "documents" or "messages") that was clicked.  -->
-<cms-header (selectedFeatureEvent)="switchView($event)"></cms-header>
+<cms-header></cms-header>
+<!-- <cms-header (selectedFeatureEvent)="switchView($event)"></cms-header> -->
 <div class="container pull-left">
     <div class="row">
         <div class="col-md-12">
-            <cms-documents *ngIf="selectedFeature === 'documents'"></cms-documents>
+            <!-- Reference: https://byui.instructure.com/courses/404738/pages/w06-assignment-instructions -->
+            <!-- Insert the <router-outlet> tag inside the <div> as shown below. The <router-outlet> tag indicates the location 
+            where each of the main components defined in the app-routing.module.ts file will be loaded and displayed. -->
+            <router-outlet></router-outlet>
+            <!-- Reference: https://byui.instructure.com/courses/404738/pages/w06-assignment-instructions -->
+            <!-- The *ngIf statements are no longer needed because Angular routing will automatically select and 
+            load the correct component based on the current URL instead. Comment out the selectedFeatureEvent 
+            event listener, the *ngIf (or ngSwitch) directives, and the <cms-documents>, <cms-message-list>, 
+            and <cms-contacts> tags as shown below. They are no longer needed. -->
+            <!-- <cms-documents *ngIf="selectedFeature === 'documents'"></cms-documents>
             <cms-message-list *ngIf="selectedFeature === 'messages'"></cms-message-list>
-            <cms-contacts *ngIf="selectedFeature === 'contacts'"></cms-contacts>
+            <cms-contacts *ngIf="selectedFeature === 'contacts'"></cms-contacts> -->
         </div>
     </div>
 </div>

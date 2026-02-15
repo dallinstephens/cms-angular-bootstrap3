@@ -3,22 +3,26 @@
     <div class="row pad-all">
       <h4 class="title margin-left-right">{{ document?.name }}</h4>
       <div class="row pull-right margin-left-right">
-        <a class="btn btn-primary margin-right-5px">View</a>
-        <a class="btn btn-info margin-right-5px" >Edit</a>
-        <a class="btn btn-danger">Delete</a>
+        <a class="btn btn-primary margin-right-5px" (click)="onView()">View</a>
+        <!-- Reference: https://byui.instructure.com/courses/404738/pages/w06-assignment-instructions -->
+        <!-- Add a [routerLink] directive to the <a> tag for the Edit button. The URL assigned to the [routerLink] directive 
+        must match the URL path defined in the routing table where the value of the id route parameter is the value of 
+        the id property of the document to be edited. Path: :id/edit, Component: DocumentEditComponent -->
+        <a class="btn btn-info margin-right-5px" [routerLink]="['/documents', document.id, 'edit']">Edit</a>
+        <a class="btn btn-danger" (click)="onDelete()">Delete</a>
       </div>
     </div>
   </div>
   <div class="panel-body">
     <div class="pad-left-right">
-      <!-- <div class="row">
+      <div class="row">
         <label>Description:</label>
         <p class="label-value"> {{ document?.description }}</p>
       </div>
-      <br> -->
+      <br>
       <div class="row">
         <label>URL:</label>
-        <span class="label-value"> {{ document?.url }}</span>
+        <p class="label-value"> {{ document?.url }}</p>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
                 <b>Contacts</b>
             </div>
             <div class="col-xs-4 text-right">
-                <button class="btn btn-success pull-right">New Contact</button>
+                <button class="btn btn-success pull-right" [routerLink]="['/contacts', 'new']">New Contact</button>
             </div>
         </div>
     </div>
@@ -21,9 +21,13 @@
         onSelected() method. Pass the current contact object defined in the ngFor directive to the method. -->
         <cms-contact-item
             *ngFor="let contactElement of contacts"
+            [contact]="contactElement">
+        </cms-contact-item>
+        <!-- <cms-contact-item
+            *ngFor="let contactElement of contacts"
             [contact]="contactElement"
             (click)="onSelected(contactElement)">
-        </cms-contact-item>
+        </cms-contact-item> -->
         <!-- This was inserted into the contact-item component -->
         <!-- <a href="#"
             class="list-group-item clearfix"

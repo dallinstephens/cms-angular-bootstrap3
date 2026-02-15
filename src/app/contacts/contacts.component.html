@@ -34,9 +34,10 @@
     *ngIf="selectedContact". *ngIf="selectedContact" loads ONLY if it exists. *ngIf="selectedContact"
     evalutes to false if selectedContact is nothing. -->
     <div class="col-md-7">
-        <cms-contact-detail
+        <router-outlet></router-outlet>
+        <!-- <cms-contact-detail
             *ngIf="selectedContact"
             [contact]="selectedContact">
-        </cms-contact-detail>
+        </cms-contact-detail> -->
     </div>
 </div>

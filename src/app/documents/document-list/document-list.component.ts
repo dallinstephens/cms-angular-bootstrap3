@@ -15,14 +15,20 @@ export class DocumentListComponent implements OnInit {
 
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
+    this.documentService.documentChangedEvent
+      .subscribe(
+        (documentsArray: Document[]) => {
+          this.documents = documentsArray;
+        }
+      );
   }
 
   // Reference: https://byui.instructure.com/courses/404738/pages/w05-assignment-instructions
   // Modify the onSelectedDocument(document: Document) method to now emit the documentSelectedEvent 
   // and pass it the Document object selected and passed into the method.
-  onSelectedDocument(document: Document) {
-    this.documentService.documentSelectedEvent.emit(document);
-  }
+  // onSelectedDocument(document: Document) {
+  //   this.documentService.documentSelectedEvent.emit(document);
+  // }
 
   // @Output() selectedDocumentEvent = new EventEmitter<Document>();
 
