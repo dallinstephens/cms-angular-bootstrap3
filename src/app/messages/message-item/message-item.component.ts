@@ -26,7 +26,11 @@ export class MessageItemComponent implements OnInit {
   ngOnInit() {
     // this.message.sender is an id for the contact - see MOCKMESSAGES.ts and MOCKCONTACTS.ts
     const contact: Contact = this.contactService.getContact(this.message.sender);
-    this.messageSender = contact.name;
+    if (contact) {
+      this.messageSender = contact.name;
+    } else {
+      this.messageSender = 'Dallin Stephens';
+    } 
   }
 
 }

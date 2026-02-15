@@ -11,8 +11,8 @@ export class MessageEditComponent {
   @ViewChild('subject', { static: false }) subjectInputRef: ElementRef;
   @ViewChild('msgText', { static: false }) msgTextInputRef: ElementRef;
   @Output() addMessageEvent = new EventEmitter<Message>();
-  currentSender: string = '1';
-  // currentSender: string = 'Dallin';
+  currentSender: string;
+  // currentSender: string = '1';
 
   constructor(private messageService: MessageService) {}
 
