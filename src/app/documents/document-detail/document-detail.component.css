@@ -17,3 +17,9 @@
 .margin-right-5px {
   margin-right: 5px;
 }
+
+.wrapped-text {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
