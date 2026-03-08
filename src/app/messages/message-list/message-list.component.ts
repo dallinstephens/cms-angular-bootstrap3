@@ -10,7 +10,8 @@ import { MessageService } from '../message.service';
 export class MessageListComponent implements OnInit {
   messages: Message[] = [];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService) {}
 
   // Reference: https://byui.instructure.com/courses/404738/pages/w05-assignment-instructions
   // Modify the ngOnInit() method located in the MessageListComponent class to call the getMessages() 
@@ -22,13 +23,13 @@ export class MessageListComponent implements OnInit {
   // messageChangedEvent to the messages array in the MessageListComponent. A corollary example of how to 
   // do this can be found in the shopping-list.component.ts file in the Recipe Book project.
   ngOnInit() {
-    this.messages = this.messageService.getMessages();
-    this.messageService.messageChangedEvent
-      .subscribe(
-        (messages: Message[]) => {
-          this.messages = messages
-        }
-      );
+    this.messageService.messageListChangedEvent
+    .subscribe(
+      (messages: Message[]) => {
+        this.messages = messages
+      }
+    );
+    this.messageService.getMessages();
   }
 
   // messages: Message[] = [

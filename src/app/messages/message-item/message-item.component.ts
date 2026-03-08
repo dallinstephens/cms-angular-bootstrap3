@@ -11,6 +11,7 @@ import { ContactService } from '../../contacts/contact.service';
 export class MessageItemComponent implements OnInit {
   @Input() message: Message;
   messageSender: string;
+  contacts: Contact[] = [];
 
   constructor(private contactService: ContactService) {}
 
@@ -29,8 +30,15 @@ export class MessageItemComponent implements OnInit {
     if (contact) {
       this.messageSender = contact.name;
     } else {
-      this.messageSender = 'Dallin Stephens';
+      this.messageSender = this.message.sender;
+      // this.messageSender = 'Dallin Stephens';
     } 
+      this.contactService.contactListChangedEvent
+      .subscribe(
+        (contacts: Contact[]) => {
+          this.contacts = contacts;
+        }
+      );
+      this.contactService.getContacts();
   }
-
 }

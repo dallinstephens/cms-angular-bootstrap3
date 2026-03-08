@@ -1,14 +1,32 @@
 <!-- Reference for bootstap 3 panels: https://www.w3schools.com/bootstrap/bootstrap_panels.asp -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="row" style="display: flex; align-items: center;">
+        <div class="row">
+          <span class="title pad-left-right">Contacts</span>
+        </div>
+        <div class="row">
+          <div class="input-group pull-left pad-left-right col-xs-7">
+            <!-- Add the search box input field here -->
+            <input 
+                type="text" 
+                #searchBox
+                (keyup)="search(searchBox.value)"
+                class="form-control"
+                placeholder="Enter a search value">
+            <div class="glyphicon glyphicon-search input-group-addon" (click)="search(searchBox.value)"></div>
+          </div>
+          <div class="pull-right pad-left-right">
+            <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
+          </div>
+        </div>
+        <!-- <div class="row" style="display: flex; align-items: center;">
             <div class="col-xs-8" style=" font-size: 20px;">
                 <b>Contacts</b>
             </div>
             <div class="col-xs-4 text-right">
                 <button class="btn btn-success pull-right" [routerLink]="['/contacts', 'new']">New Contact</button>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="panel-body">
         <!-- [contact]="contactElement": contactElement is passed into the contact input variable
@@ -20,7 +38,7 @@
         and go to the < cms- contact-item > tag. Use event binding to detect the click event and call the 
         onSelected() method. Pass the current contact object defined in the ngFor directive to the method. -->
         <cms-contact-item
-            *ngFor="let contactElement of contacts"
+            *ngFor="let contactElement of contacts | contactsFilter:term "
             [contact]="contactElement">
         </cms-contact-item>
         <!-- <cms-contact-item
