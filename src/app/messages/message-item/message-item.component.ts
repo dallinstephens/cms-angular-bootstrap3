@@ -11,7 +11,6 @@ import { ContactService } from '../../contacts/contact.service';
 export class MessageItemComponent implements OnInit {
   @Input() message: Message;
   messageSender: string;
-  contacts: Contact[] = [];
 
   constructor(private contactService: ContactService) {}
 
@@ -26,19 +25,21 @@ export class MessageItemComponent implements OnInit {
   // the name of the contact found and assign it to the class variable messageSender.
   ngOnInit() {
     // this.message.sender is an id for the contact - see MOCKMESSAGES.ts and MOCKCONTACTS.ts
-    const contact: Contact = this.contactService.getContact(this.message.sender);
-    if (contact) {
-      this.messageSender = contact.name;
-    } else {
-      this.messageSender = this.message.sender;
-      // this.messageSender = 'Dallin Stephens';
-    } 
-      this.contactService.contactListChangedEvent
+
+    this.contactService.contactListChangedEvent
       .subscribe(
-        (contacts: Contact[]) => {
-          this.contacts = contacts;
+        () => {
+          const contact: Contact = this.contactService.getContact(this.message.sender);
+          // console.log(contact);
+          if (contact) {
+            this.messageSender = contact.name;
+          } else {
+            this.messageSender = this.message.sender;
+            // this.messageSender = 'Dallin Stephens';
+          }
         }
       );
+
       this.contactService.getContacts();
   }
 }
