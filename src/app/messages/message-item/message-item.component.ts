@@ -30,12 +30,12 @@ export class MessageItemComponent implements OnInit {
       .subscribe(
         () => {
           const contact: Contact = this.contactService.getContact(this.message.sender);
-          // console.log(contact);
+          console.log(contact);
           if (contact) {
             this.messageSender = contact.name;
           } else {
-            this.messageSender = this.message.sender;
-            // this.messageSender = 'Dallin Stephens';
+            // this.messageSender = this.message.sender;
+            this.messageSender = 'Dallin Stephens';
           }
         }
       );
