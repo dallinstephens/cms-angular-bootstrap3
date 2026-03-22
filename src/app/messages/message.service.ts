@@ -21,15 +21,26 @@ export class MessageService {
     // this.messages = MOCKMESSAGES;
   }
 
+  sortAndSend() {
+    this.messages.sort((a, b) => {
+      if (a.sender < b.sender ) return -1;
+      if (a.sender < b.sender ) return 1;
+      return 0;
+    });
+    this.messageListChangedEvent.next(this.messages.slice());
+  }
+
   getMessages(): void {
     // return this.messages.slice();
     this.http
-      .get<Message[]>(
-        'https://dlscms-default-rtdb.firebaseio.com/messages.json'
+      .get<{ message: string, messages: Message[]}>(
+        'http://localhost:3000/messages'
+        // 'https://dlscms-default-rtdb.firebaseio.com/messages.json'
       )
       .subscribe({ 
-        next: (messages: Message[]) => {
-          this.messages = messages || [];
+        next: (responses) => {
+        // next: (messages: Message[]) => {
+          this.messages = responses.messages || [];
           this.maxMessageId = this.getMaxId();
           // Reference for javascript sort array: https://www.w3schools.com/js/js_array_sort.asp
           this.messages.sort((a, b) => { 
@@ -50,18 +61,18 @@ export class MessageService {
       })
   }
 
-  storeMessages() {
-        this.http
-            .put(
-                'https://dlscms-default-rtdb.firebaseio.com/messages.json', 
-                JSON.stringify(this.messages),
-                { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-            )
-            .subscribe(() => {
-              let messagesListClone = this.messages.slice();
-              this.messageListChangedEvent.next(messagesListClone); 
-            })
-  }  
+  // storeMessages() {
+  //       this.http
+  //           .put(
+  //               'https://dlscms-default-rtdb.firebaseio.com/messages.json', 
+  //               JSON.stringify(this.messages),
+  //               { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+  //           )
+  //           .subscribe(() => {
+  //             let messagesListClone = this.messages.slice();
+  //             this.messageListChangedEvent.next(messagesListClone); 
+  //           })
+  // }  
 
   getMessage(id: string): Message {
     return this.messages.find((message) => message.id === id) || null;
@@ -87,14 +98,94 @@ export class MessageService {
   // At the end of the addMessage() method, use the messageChangedEvent emitter to emit a copy—for 
   // example, the slice() method.
   addMessage(message: Message) {
-    if (message === undefined) {
+    if (!message) {
       return;
     }
-    this.maxMessageId++;
-    message.id = this.maxMessageId.toString();
 
-    this.messages.push(message);
-    // this.messageChangedEvent.emit(this.messages.slice());
-    this.storeMessages();
+    // make sure id of new message is empty
+    message.id = '';
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // add to database
+    this.http
+      .post<{ message: string, newMessage: Message }>(
+        'http://localhost:3000/messages', 
+        message,
+        { headers: headers }
+      )
+      .subscribe(
+        (responseData) => {
+          // add new messages to messages
+          this.messages.push(responseData.newMessage);
+          this.sortAndSend();
+        }
+      );
+  }
+
+  // addMessage(message: Message) {
+  //   if (message === undefined) {
+  //     return;
+  //   }
+  //   this.maxMessageId++;
+  //   message.id = this.maxMessageId.toString();
+
+  //   this.messages.push(message);
+  //   // this.messageChangedEvent.emit(this.messages.slice());
+  //   this.storeMessages();
+  // }
+
+  updateMessage(originalMessage: Message, newMessage: Message) {
+    if (!originalMessage || !newMessage) {
+      return;
+    }
+    
+    const pos = this.messages.findIndex(d => d.id === originalMessage.id);
+
+    if (pos < 0) {
+      return;
+    }
+
+    // set the id of the new Message to the id of the old message
+    newMessage.id = originalMessage.id;
+    newMessage._id = originalMessage._id;
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // update database
+    this.http
+      .put(
+        'http://localhost:3000/messages/' + originalMessage.id,
+        newMessage,
+        { headers: headers }
+      )
+      .subscribe(
+        (response: Response) => {
+          this.messages[pos] = newMessage;
+          this.sortAndSend();
+        }
+      );
+  }
+
+  deleteMessage(message: Message) {
+    if (!message) {
+      return;
+    }
+
+    const pos = this.messages.findIndex(d => d.id === message.id);
+
+    if (pos < 0) {
+      return;
+    }
+
+    // delete from database
+    this.http
+      .delete('http://localhost:3000/messages/' + message.id)
+      .subscribe(
+        (response: Response) => {
+          this.messages.splice(pos, 1);
+          this.sortAndSend();
+        }
+      );
   }
 }
