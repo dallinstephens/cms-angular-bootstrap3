@@ -24,13 +24,15 @@ export class MessageItemComponent implements OnInit {
   // and pass it the value of the sender property of the current message as shown below. Then, get 
   // the name of the contact found and assign it to the class variable messageSender.
   ngOnInit() {
+    // console.log('Data received in Item:', this.message);
     // this.message.sender is an id for the contact - see MOCKMESSAGES.ts and MOCKCONTACTS.ts
-
+    // Get contact immediately
     this.contactService.contactListChangedEvent
       .subscribe(
         () => {
           const contact: Contact = this.contactService.getContact(this.message.sender);
-          console.log(contact);
+          // console.log('Contact: ' + contact);
+          // console.log('Comparing Sender ID:', this.message.sender, 'to contact list');
           if (contact) {
             this.messageSender = contact.name;
           } else {

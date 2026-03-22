@@ -9,7 +9,7 @@
         </div>
         <div class="row" style="display: flex; align-items: center; margin: 10px 0px">
             <div class="col-xs-8" style="padding-left: 0;">       
-                <img src="{{ contact.imageUrl }}"
+                <img *ngIf="contact.imageUrl" src="{{ contact.imageUrl }}"
                 alt="{{ contact.name }}"
                 class="img-responsive">
             </div>
@@ -24,8 +24,9 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <p class="list-group-item-heading"><b>Email: </b>{{ contact.email }}</p>         
-                <p class="list-group-item-heading"><b>Phone: </b>{{ contact.phone }}</p>
+                <cms-contact-item  *ngFor="let contact of contact.group; let i = index" class="col-sm-11" [contact]="contact"></cms-contact-item>
+                <p *ngIf="!contact.group" class="list-group-item-heading"><b>Email: </b>{{ contact.email }}</p>         
+                <p *ngIf="!contact.group" class="list-group-item-heading"><b>Phone: </b>{{ contact.phone }}</p>
             </div>
         </div>
     </div>
